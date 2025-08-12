@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import "./globals.css"
 import { AuthProvider } from "@/lib/auth/auth-context"
 import { AppLayout } from "@/components/layout/app-layout"
+import { ThemeProvider } from "next-themes"
 
 export const metadata: Metadata = {
   title: "Système Hospitalier National - Algérie",
@@ -18,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <head>
         <style>{`
 html {
@@ -29,9 +30,11 @@ html {
         `}</style>
       </head>
       <body>
-        <AuthProvider>
-          <AppLayout>{children}</AppLayout>
-        </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <AuthProvider>
+            <AppLayout>{children}</AppLayout>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
